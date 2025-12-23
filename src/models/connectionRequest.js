@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Define the ConnectionRequest schema
 const connectionRequestSchema = new mongoose.Schema(
   {
     fromUserId: {
@@ -26,6 +27,7 @@ const connectionRequestSchema = new mongoose.Schema(
 
 connectionRequestSchema.index({ fromUserId: 1, toUserId: 1 });
 
+// Pre-save hook to prevent sending connection request to oneself
 connectionRequestSchema.pre("save", function (next) {
   const connectionRequest = this;
   // Check if the fromUserId is same as toUserId

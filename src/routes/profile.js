@@ -4,6 +4,7 @@ const { validateEditProfiledata } = require("../utils/validation");
 
 const profileRouter = express.Router();
 
+// Get Profile Route - to fetch logged-in user's profile
 profileRouter.get("/profile", userAuth, async (req, res) => {
   try {
     const user = req.user;
@@ -14,6 +15,7 @@ profileRouter.get("/profile", userAuth, async (req, res) => {
   }
 });
 
+// Edit Profile Route - to update logged-in user's profile
 profileRouter.patch("/profile/edit", userAuth, async (req, res) =>{
     try {
         if(!validateEditProfiledata(req)){

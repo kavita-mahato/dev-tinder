@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 
 const authRouter = express.Router();
 
+// Signup Route - for new users
 authRouter.post("/signup", async (req, res) => {
   try{
     // Validate the incoming data
@@ -34,6 +35,7 @@ authRouter.post("/signup", async (req, res) => {
   }
 });
 
+// Login Route - for existing users
 authRouter.post("/login", async (req, res) => {
   try {
     const { emailId, password } = req.body;
@@ -62,6 +64,7 @@ authRouter.post("/login", async (req, res) => {
   }
 });
 
+// Logout Route - end the user session
 authRouter.post("/logout", async (req, res) => {
     res.cookie("token", null, {
         expires: new Date(Date.now()),
@@ -69,6 +72,7 @@ authRouter.post("/logout", async (req, res) => {
     res.send("Logout Successful!!!");
 });
 
+// Forgot Password Route - to reset password
 authRouter.post("/forgotPassword", async (req, res) => {
   try {
     const { email, newPassword } = req.body;

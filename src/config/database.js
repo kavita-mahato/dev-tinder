@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 
+// Function to connect to MongoDB database
 const connectDB = async () => {
   try {
     if (!process.env.MONGODB_URI) {

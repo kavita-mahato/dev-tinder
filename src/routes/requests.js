@@ -4,6 +4,7 @@ const { userAuth } = require("../middlewares/auth");
 const ConnectionRequest = require("../models/connectionRequest");
 const User = require("../models/user");
 
+// Send Connection Request Route - to express interest or ignore a user
 requestRouter.post("/request/send/:status/:toUserId", userAuth, async(req, res) => {
      try {
       const fromUserId = req.user._id;
@@ -58,6 +59,7 @@ requestRouter.post("/request/send/:status/:toUserId", userAuth, async(req, res) 
   }
 });
 
+// Review Connection Request Route - to accept or reject a connection request
 requestRouter.post(
   "/request/review/:status/:requestId",
   userAuth,

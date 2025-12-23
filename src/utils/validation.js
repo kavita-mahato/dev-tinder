@@ -1,5 +1,6 @@
 const validator = require("validator");
 
+// Function to validate sign-up data
 const validateSignUpData = (req) => {
   const { firstName, lastName, emailId, password, gender } = req.body;
   if (!firstName || !lastName) {
@@ -13,6 +14,7 @@ const validateSignUpData = (req) => {
   }
 };
 
+// Function to validate edit profile data
 const validateEditProfiledata = (req) => {
   const allowedFields = ["firstName", "lastName", "photoUrl", "password", "about", "skills", "age"];
 
