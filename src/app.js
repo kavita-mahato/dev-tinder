@@ -8,10 +8,10 @@ app.use(express.json()); // Middleware to parse JSON bodies
 app.use(cookieParser()); // Middleware to parse cookies
 
 // Route Handlers
-const authRouter = require("./routes/auth");
-const profileRouter = require("./routes/profile");
-const requestRouter = require("./routes/requests");
-const userRouter = require("./routes/user");
+const authRouter = require("./routes/authRouter");
+const profileRouter = require("./routes/profileRouter");
+const requestRouter = require("./routes/requestsRouter");
+const userRouter = require("./routes/userRouter");
 
 // Use the route handlers
 app.use("/", authRouter);
