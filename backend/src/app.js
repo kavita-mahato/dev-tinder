@@ -1,0 +1,32 @@
+const express = require("express");
+const connectDB = require("./config/database");
+const cookieParser = require("cookie-parser");
+
+const app = express();
+
+app.use(express.json()); // Middleware to parse JSON bodies
+app.use(cookieParser()); // Middleware to parse cookies
+
+// Route Handlers
+const authRouter = require("./routes/authRouter");
+const profileRouter = require("./routes/profileRouter");
+const requestRouter = require("./routes/requestsRouter");
+const userRouter = require("./routes/userRouter");
+
+// Use the route handlers
+app.use("/", authRouter);
+app.use("/", profileRouter);
+app.use("/", requestRouter);
+app.use("/", userRouter);
+
+// Connect to database first, then start server
+connectDB()
+  .then(() => {
+    app.listen(3000, () => {
+      console.log("Server is listening on port 3000...");
+    });
+  })
+  .catch((err) => {
+    console.error("Database connection error:", err.message);
+    process.exit(1);
+  });
