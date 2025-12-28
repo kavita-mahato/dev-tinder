@@ -9,6 +9,7 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
     const [emailId, setEmailId] = useState("kavitamahato@gmail.com");
     const [password, setPassword] = useState("Kavita@03");
+    const [error, setError] = useState("");
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -19,14 +20,12 @@ const Login = () => {
                 emailId,
                 password
             },
-            {
-                withCredentials: true
-            }
+            {withCredentials: true}
             );
             dispatch(addUser(res.data)); // Save user to Redux
             navigate("/");
         }catch(err){
-            console.error(err);
+            setError(err.response?.data?.message || "Invalid email or password");
         }
     }
 
@@ -45,6 +44,7 @@ const Login = () => {
                         <input type="password" className="input w-full" placeholder="********" value={password} onChange={(e) => setPassword(e.target.value)}/>
                     </div>
                 </div>
+                <p className="text-red-500">{error}</p>
                 <div className="card-actions justify-center mt-3 ">
                 <button className="btn btn-primary w-full" onClick={handleLogin}>Login</button>
                 </div>
