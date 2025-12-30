@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import UserCard from './UserCard';
@@ -15,9 +15,10 @@ const EditProfile = ({ user }) => {
     const [about, setAbout] = useState(user.about || '');
     const [photoUrl, setPhotoUrl] = useState(user.photoUrl || '');
     const [error, setError] = useState('');
+    const [showToast, setShowToast] = useState(false);
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const saveProfile = async () => {
         try {
@@ -45,6 +46,10 @@ const EditProfile = ({ user }) => {
                 { withCredentials: true }
             );
             dispatch(addUser(res?.data?.user || res?.data));
+            setShowToast(true);
+            setTimeout(() => {
+                setShowToast(false);
+            }, 3000);
             setError(''); // Clear any previous errors
         } catch (err) {
             // Backend sends error as plain string: "ERROR : {message}"
@@ -55,6 +60,7 @@ const EditProfile = ({ user }) => {
     };
 
     return (
+        <>
         <div className="flex justify-center my-10">
             <div className="flex justify-center mx-5">
                 <div className="card bg-base-300 w-96 shadow-sm">
@@ -63,7 +69,7 @@ const EditProfile = ({ user }) => {
                             Edit your Profile
                         </h2>
                         <div>
-                            <div className="fieldset">
+                            <div className="fieldset mb-3">
                                 <div className="label">First Name</div>
                                 <input
                                     type="text"
@@ -75,7 +81,7 @@ const EditProfile = ({ user }) => {
                                     }
                                 />
                             </div>
-                            <div className="fieldset">
+                            <div className="fieldset mb-3">
                                 <div className="label">Last Name</div>
                                 <input
                                     type="text"
@@ -87,7 +93,7 @@ const EditProfile = ({ user }) => {
                                     }
                                 />
                             </div>
-                            <div className="fieldset">
+                            <div className="fieldset mb-3">
                                 <div className="label">Age</div>
                                 <input
                                     type="number"
@@ -97,17 +103,22 @@ const EditProfile = ({ user }) => {
                                     onChange={(e) => setAge(e.target.value)}
                                 />
                             </div>
-                            <div className="fieldset">
+                            <div className="fieldset mb-3">
                                 <div className="label">Gender</div>
-                                <input
-                                    type="text"
-                                    className="input w-full"
-                                    placeholder="Gender"
-                                    value={gender}
-                                    onChange={(e) => setGender(e.target.value)}
-                                />
-                            </div>
-                            <div className="fieldset">
+                                    <select
+                                        className="select w-full"
+                                        value={gender}
+                                        onChange={(e) => setGender(e.target.value)}
+                                    >
+                                        <option value="" disabled>
+                                        Select Gender
+                                        </option>
+                                        <option value="female">Female</option>
+                                        <option value="male">Male</option>
+                                        <option value="others">Others</option>
+                                    </select>
+                                </div>
+                            <div className="fieldset mb-3">
                                 <div className="label">About</div>
                                 <input
                                     type="text"
@@ -117,7 +128,7 @@ const EditProfile = ({ user }) => {
                                     onChange={(e) => setAbout(e.target.value)}
                                 />
                             </div>
-                            <div className="fieldset">
+                            <div className="fieldset mb-3">
                                 <legend className="label">
                                     Change Profile Picture
                                 </legend>
@@ -147,6 +158,12 @@ const EditProfile = ({ user }) => {
                 user={{ firstName, lastName, photoUrl, about, age, gender }}
             />
         </div>
+        {showToast && (<div className="toast toast-end">
+            <div className="alert alert-success">
+                <span>Profile saved successfully.</span>
+            </div>
+        </div>)}
+        </>
     );
 };
 
