@@ -29,6 +29,27 @@ userRouter.get("/user/requests/received", userAuth, async (req, res) => {
   }
 });
 
+// Get all connection requests sent by LoggedIn user
+userRouter.get("/user/requests/sent", userAuth, async (req, res) => {
+  try {
+    const loggedInUser = req.user;
+
+    const connectionRequestsByUser = await ConnectionRequest.find({
+      fromUserId: loggedInUser._id,
+      status: "interested",
+    }).populate(
+      "toUserId", USER_SAFE_DATA);
+    // }).populate("fromUserId", ["firstName", "lastName"]);
+
+    res.json({
+      message: "Data fetched successfully",
+      data: connectionRequestsByUser,
+    });
+  } catch (err) {
+    req.statusCode(400).send("ERROR: " + err.message);
+  }
+});
+
 // Get all the connections for the loggedIn user
 userRouter.get("/user/connections", userAuth, async (req, res) => {
   try {

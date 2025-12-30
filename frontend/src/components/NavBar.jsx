@@ -26,9 +26,23 @@ const NavBar = () => {
           <Link to="/" className="btn btn-ghost text-xl">DevTinder</Link>
         </div>
         {user && (<div className="flex gap-2">
-          <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto mx-5" />
-          <div className="form-control flex items-center">Welcome, {user.firstName}</div>
-          <div className="dropdown dropdown-end mx-5">
+          <label className="input m-2">
+            <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2.5"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </g>
+            </svg>
+            <input type="search" required placeholder="Search" />
+          </label>
+          <div className="form-control flex items-center">Welcome,&nbsp;{user.firstName}</div>
+          <div className="dropdown dropdown-end mx-4">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
                 <img
@@ -45,8 +59,10 @@ const NavBar = () => {
                   <span className="badge">New</span>
                 </Link>
               </li>
+              <li><Link to="/connections">Connections</Link></li>
+              <li><Link to="/requests">Requests</Link></li>
               <li><a>Settings</a></li>
-              <li><a onClick={handleLogout}>Logout</a></li>
+              <li><Link onClick={handleLogout}>Logout</Link></li>
             </ul>
           </div>
         </div>)}

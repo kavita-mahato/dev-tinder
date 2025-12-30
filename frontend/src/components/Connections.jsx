@@ -27,7 +27,19 @@ const Connections = () => {
     }, []);
 
     if(!connections) return;
-    if(connections.length === 0) return <h1>No connections found</h1>;
+    if(connections.length === 0) {
+        return (
+        <div className="bg-base-300 text-neutral-content w-96 flex justify-center">
+        <div className="card-body items-center text-center">
+            <h2 className="card-title">No connections yet!!</h2>
+            <p>Get started with DevTinder now.</p>
+            <div className="card-actions justify-end">
+            <button className="btn btn-primary w-full">Start connecting</button>
+            </div>
+        </div>
+        </div>
+        )
+    } 
 
     return (
         <div className="flex justify-center my-15">
