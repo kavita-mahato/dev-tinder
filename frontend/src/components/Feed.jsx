@@ -7,14 +7,16 @@ import { addFeed } from "../utils/feedSlice";
 import UserCard from "./UserCard";
 
 const Feed = () => {
-  const feed = useSelector((store) => store.feed);
   const dispatch = useDispatch();
+
+  const feed = useSelector((store) => store.feed);
+  const searchTerm = useSelector((store) => store.search);
 
   const getFeed = async () => {
     if (feed) return;
 
     try {
-      const res = await axios.get(BASE_URL + "/feed", {
+      const res = await axios.get(`${BASE_URL}/feed`, {
         withCredentials: true,
       });
 
@@ -40,13 +42,36 @@ const Feed = () => {
     );
   }
 
+  // 🔍 PREFIX-BASED SEARCH FILTER
+  const filteredFeed = feed.filter((user) => {
+    if (!searchTerm) return true;
+
+    const search = searchTerm.toLowerCase().trim();
+
+    const firstName = user.firstName?.toLowerCase() || "";
+    const lastName = user.lastName?.toLowerCase() || "";
+    const fullName = `${firstName} ${lastName}`.trim();
+
+    return (
+      firstName.startsWith(search) ||
+      lastName.startsWith(search) ||
+      fullName.startsWith(search)
+    );
+  });
+
   return (
-    <div className="max-w-5xl mx-auto my-10">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {feed.slice(0, 6).map((user) => (
-          <UserCard key={user._id} user={user} />
-        ))}
-      </div>
+    <div className="max-w-6xl mx-auto my-10 px-4">
+      {filteredFeed.length === 0 ? (
+        <p className="text-center opacity-60">
+          No matching users found
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredFeed.slice(0, 6).map((user) => (
+            <UserCard key={user._id} user={user} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -12,10 +12,11 @@ import {
     FaCog,
     FaSignOutAlt
 } from "react-icons/fa";
-import { IoBookSharp } from "react-icons/io5";
 
 import { BASE_URL, DEFAULT_PHOTO_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
+import { setSearchTerm } from "../utils/searchSlice";
+import { IoBookSharp } from "react-icons/io5";
 import logo from "../assets/logoImg.png";
 
 const NavBar = () => {
@@ -61,7 +62,7 @@ const NavBar = () => {
                   <path d="m21 21-4.3-4.3"></path>
                 </g>
               </svg>
-              <input type="search" required placeholder="Search" />
+              <input type="search" required placeholder="Search" onChange={(e) => dispatch(setSearchTerm(e.target.value))}/>
             </label>
             <div className="font-semibold text-xl">Hi,&nbsp;{user.firstName}</div>
             <div className="dropdown dropdown-end mr-4 ml-2">
