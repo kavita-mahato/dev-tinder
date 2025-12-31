@@ -32,11 +32,7 @@ const Connections = () => {
         <div className="flex justify-center my-15">
         <ul className="list bg-base-300 rounded-box shadow-md w-7/12">
         
-        <li className="p-4 pb-2 text-xl opacity-60 tracking-wide">My Connections</li>
-        {/* name of each tab group should be unique */}
-        {/* <div className="tabs tabs-border"> */}
-        {/* <input type="radio" name="my_tabs_2" className="tab" aria-label="Received" /> */}
-        {/* <div className="tab-content border-base-300 bg-base-100 p-10"> */}
+        <li className="p-4 pb-2 text-xl opacity-60 tracking-wide border-b-base-300">My Connections</li>
             {connections.length === 0 ? (
                 <p className="text-center opacity-60 my-15">No Connections Found</p>
             ) :connections.map((connection) => <div key={connection.id || connection._id}>
@@ -56,14 +52,7 @@ const Connections = () => {
                     </ul>
                     </div>
                 </li> 
-                {/* <div className="divider"></div>                */}
             </div>)}
-        {/* </div> */}
-
-        {/* <input type="radio" name="my_tabs_2" className="tab" aria-label="Sent" defaultChecked /> */}
-        {/* <div className="tab-content border-base-300 bg-base-100 p-10">Tab content 2</div> */}
-        {/* </div> */}
-
         </ul>
         </div>
     )

@@ -216,7 +216,7 @@ const SignUp = () => {
             );
             
             dispatch(addUser(loginRes.data));
-            navigate("/feed");
+            navigate("/profile");
         } catch (err) {
             setError(err.response?.data?.message || err.response?.data || err.message || "Sign up failed. Please try again.");
         }
