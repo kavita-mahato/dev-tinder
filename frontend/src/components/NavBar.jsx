@@ -42,9 +42,9 @@ const NavBar = () => {
     alt="DevTinder Logo"
     className="w-8 h-8"
   />DevTinder</Link>
-          <button className="btn btn-ghost"><FaHandsHelping />Support</button>
-          <button className="btn btn-ghost"><FaInfoCircle />About Us</button>
-          <button className="btn btn-ghost"><IoBookSharp />Learn</button>
+          <Link to="/support"><button className="btn btn-ghost"><FaHandsHelping />Support</button></Link>
+          <Link to="/about"><button className="btn btn-ghost"><FaInfoCircle />About Us</button></Link>
+          <Link to="/learn"><button className="btn btn-ghost"><IoBookSharp />Learn</button></Link>
         </div>
         {user ? (
           // Logged in: profile pic, Hi firstName, search bar, support, about us, learn

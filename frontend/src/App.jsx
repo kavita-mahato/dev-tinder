@@ -10,7 +10,10 @@ import appStore from './utils/appstore';
 import EditProfile from './components/EditProfile';
 import Connections from './components/Connections';
 import Requests from './components/Requests';
+import Learn from './components/Learn';
 import ProtectedRoute from './components/ProtectedRoute';
+import AboutUs from './components/AboutUs';
+import Support from './components/Support';
 
 function App() {
     return (
@@ -21,6 +24,9 @@ function App() {
                     <Route path="/" element={<Body />}>
                         <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<SignUp />} />
+                        <Route path="/learn" element={<Learn />} />
+                        <Route path="/about" element={<AboutUs />} />
+                        <Route path="/support" element={<Support />} />
                         <Route 
                             path="/profile" 
                             element={
