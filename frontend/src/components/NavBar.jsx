@@ -2,8 +2,21 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { BASE_URL } from "../utils/constants";
+import { 
+    FaSignInAlt, 
+    FaHandsHelping, 
+    FaInfoCircle,
+    FaUser,
+    FaUsers,
+    FaBell,
+    FaCog,
+    FaSignOutAlt
+} from "react-icons/fa";
+import { IoBookSharp } from "react-icons/io5";
+
+import { BASE_URL, DEFAULT_PHOTO_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
+import logo from "../assets/logoImg.png";
 
 const NavBar = () => {
   const user = useSelector(store => store.user);
@@ -23,10 +36,14 @@ const NavBar = () => {
   return (
     <div className="navbar bg-base-300 shadow-sm">
         <div className="flex-1">
-          <Link to="/" className="btn btn-ghost text-xl">DevTinder</Link>
-          <button className="btn btn-ghost">Support</button>
-          <button className="btn btn-ghost">About Us</button>
-          <button className="btn btn-ghost">Learn</button>
+          <Link to="/" className="btn btn-ghost text-2xl"><img
+    src={logo}
+    alt="DevTinder Logo"
+    className="w-8 h-8"
+  />DevTinder</Link>
+          <button className="btn btn-ghost"><FaHandsHelping />Support</button>
+          <button className="btn btn-ghost"><FaInfoCircle />About Us</button>
+          <button className="btn btn-ghost"><IoBookSharp />Learn</button>
         </div>
         {user ? (
           // Logged in: profile pic, Hi firstName, search bar, support, about us, learn
@@ -52,31 +69,51 @@ const NavBar = () => {
                 <div className="w-10 rounded-full">
                   <img
                     alt="User Photo"
-                    src={user.photoUrl} />
+                    src={user.photoUrl || DEFAULT_PHOTO_URL}
+                    onError={(e) => {
+                      e.target.src = DEFAULT_PHOTO_URL;
+                    }}
+                  />
                 </div>
               </div>
               <ul
                 tabIndex="-1"
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                className="menu dropdown-content bg-base-200 rounded-box z-1 mt-3 w-52 p-2 shadow">
                 <li>
                   <Link to="/profile" className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
+                    <span className="flex items-center gap-2">
+                      <FaUser /> Profile
+                    </span>
+                    <span className="badge badge-primary">New</span>
                   </Link>
                 </li>
-                <li><Link to="/connections">Connections</Link></li>
-                <li><Link to="/requests">Requests</Link></li>
-                <li><a>Settings</a></li>
-                <li><Link onClick={handleLogout}>Logout</Link></li>
+                <li>
+                  <Link to="/connections" className="flex items-center gap-2">
+                    <FaUsers /> Connections
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/requests" className="flex items-center gap-2">
+                    <FaBell /> Requests
+                  </Link>
+                </li>
+                <li>
+                  <a className="flex items-center gap-2">
+                    <FaCog /> Settings
+                  </a>
+                </li>
+                <li>
+                  <Link onClick={handleLogout} className="flex items-center gap-2">
+                    <FaSignOutAlt /> Log out
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
         ) : (
           // Not logged in: login, support, about us
-          <div className="flex gap-2">
-            <Link to="/login" className="btn btn-ghost">Login</Link>
-            <button className="btn btn-ghost">Support</button>
-            <button className="btn btn-ghost">About Us</button>
+          <div className="flex">
+            <Link to="/login" className="btn btn-ghost text-lg"><FaSignInAlt/>Log in</Link>
           </div>
         )}
     </div>

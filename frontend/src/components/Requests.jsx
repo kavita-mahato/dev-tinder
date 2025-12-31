@@ -49,7 +49,7 @@ const Requests = () => {
         {/* name of each tab group should be unique */}
         <div className="tabs tabs-border">
         <input type="radio" name="my_tabs_2" className="tab" aria-label="Received" defaultChecked  />
-        <div className="tab-content border-base-300 bg-base-100 p-10">
+        <div className="tab-content border-base-300 bg-base-200 p-10">
             {receivedRequests.length === 0 ? (
                 <p className="text-center opacity-60">No received requests</p>
             ) : (
@@ -75,7 +75,7 @@ const Requests = () => {
         </div>
 
         <input type="radio" name="my_tabs_2" className="tab" aria-label="Sent"/>
-        <div className="tab-content border-base-300 bg-base-100 p-10">
+        <div className="tab-content border-base-300 bg-base-200 p-10">
             {sentRequests.length === 0 ? (
                 <p className="text-center opacity-60">No sent requests</p>
             ) : (

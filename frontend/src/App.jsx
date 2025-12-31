@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Body from './components/Body';
 import Profile from './components/Profile';
 import Login from './components/Login';
+import SignUp from './components/SignUp';
 import Feed from './components/Feed';
 import { Provider } from 'react-redux';
 import appStore from './utils/appstore';
@@ -19,11 +20,20 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Body />}>
                         <Route path="/login" element={<Login />} />
+                        <Route path="/signup" element={<SignUp />} />
                         <Route 
                             path="/profile" 
                             element={
                                 <ProtectedRoute>
                                     <Profile />
+                                </ProtectedRoute>
+                            } 
+                        />
+                        <Route 
+                            path="/profile/edit" 
+                            element={
+                                <ProtectedRoute>
+                                    <EditProfile />
                                 </ProtectedRoute>
                             } 
                         />
@@ -51,7 +61,6 @@ function App() {
                                 </ProtectedRoute>
                             } 
                         />
-                        {/* <Route path="/profile/edit" element={<EditProfile />} /> */}
                     </Route>
                 </Routes>
             </BrowserRouter>
