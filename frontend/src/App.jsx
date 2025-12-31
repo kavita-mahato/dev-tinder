@@ -9,6 +9,7 @@ import appStore from './utils/appstore';
 import EditProfile from './components/EditProfile';
 import Connections from './components/Connections';
 import Requests from './components/Requests';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
     return (
@@ -18,11 +19,39 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Body />}>
                         <Route path="/login" element={<Login />} />
-                        <Route path="/profile" element={<Profile />} />
-                        <Route path="/feed" element={<Feed/>} />
-                        <Route path="/connections" element={<Connections/>} />
-                        <Route path="/requests" element={<Requests/>} />
-                        {/* <Route path="/profile/edit" element={<EditProfile/>} /> */}
+                        <Route 
+                            path="/profile" 
+                            element={
+                                <ProtectedRoute>
+                                    <Profile />
+                                </ProtectedRoute>
+                            } 
+                        />
+                        <Route 
+                            path="/feed" 
+                            element={
+                                <ProtectedRoute>
+                                    <Feed/>
+                                </ProtectedRoute>
+                            } 
+                        />
+                        <Route 
+                            path="/connections" 
+                            element={
+                                <ProtectedRoute>
+                                    <Connections/>
+                                </ProtectedRoute>
+                            } 
+                        />
+                        <Route 
+                            path="/requests" 
+                            element={
+                                <ProtectedRoute>
+                                    <Requests/>
+                                </ProtectedRoute>
+                            } 
+                        />
+                        {/* <Route path="/profile/edit" element={<EditProfile />} /> */}
                     </Route>
                 </Routes>
             </BrowserRouter>
