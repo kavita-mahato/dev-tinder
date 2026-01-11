@@ -114,7 +114,14 @@ userRouter.get("/feed", userAuth, async (req, res) => {
       .skip(skip)
       .limit(limit);
 
-    res.json({ data: users });
+    // Shuffle users so feed order is random on each request
+    const shuffledUsers = [...users];
+    for (let i = shuffledUsers.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledUsers[i], shuffledUsers[j]] = [shuffledUsers[j], shuffledUsers[i]];
+    }
+
+    res.json({ data: shuffledUsers });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

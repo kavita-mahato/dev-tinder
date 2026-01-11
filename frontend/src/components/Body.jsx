@@ -23,9 +23,9 @@ const Body = () => {
             });
             dispatch(addUser(res.data));
         }catch(err){
-            if(err.status == 401){
-                // Only redirect to login if not already on login or home page
-                if(location.pathname !== '/login' && location.pathname !== '/'){
+            if(err.response?.status === 401){
+                // Only redirect to login if not on public routes
+                if(!['/login', '/', '/signup'].includes(location.pathname)){
                     navigate("/login");
                 }
             }
