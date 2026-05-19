@@ -99,7 +99,7 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/profile/edit" className="flex items-center gap-2">
+                <Link to="/settings" className="flex items-center gap-2">
                   <FaCog /> Settings
                 </Link>
               </li>

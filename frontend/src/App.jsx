@@ -14,6 +14,7 @@ import Learn from './components/Learn';
 import ProtectedRoute from './components/ProtectedRoute';
 import AboutUs from './components/AboutUs';
 import Support from './components/Support';
+import Settings from './components/Settings';
 
 function App() {
     return (
@@ -27,6 +28,14 @@ function App() {
                         <Route path="/learn" element={<Learn />} />
                         <Route path="/about" element={<AboutUs />} />
                         <Route path="/support" element={<Support />} />
+                        <Route 
+                            path="/settings" 
+                            element={
+                                <ProtectedRoute>
+                                    <Settings />
+                                </ProtectedRoute>
+                            } 
+                        />
                         <Route 
                             path="/profile" 
                             element={
