@@ -1,5 +1,6 @@
 const express = require('express');
 const { validateSignUpData } = require("../utils/validation");
+const { getCookieOptions } = require("../utils/cookieOptions");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -52,7 +53,13 @@ authRouter.post("/login", async (req, res) => {
       const token = jwt.sign({ _id: user._id }, "DEV@Tinder$790", { expiresIn: "1d" });
 
       // Add the token to Cookie
-      res.cookie("token", token, { expires: new Date(Date.now() + 24 * 60 * 60 * 1000) });
+      res.cookie(
+        "token",
+        token,
+        getCookieOptions({
+          expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        })
+      );
 
       res.send(user);
     } 
@@ -66,9 +73,13 @@ authRouter.post("/login", async (req, res) => {
 
 // Logout Route - end the user session
 authRouter.post("/logout", async (req, res) => {
-    res.cookie("token", null, {
+    res.cookie(
+      "token",
+      null,
+      getCookieOptions({
         expires: new Date(Date.now()),
-    });
+      })
+    );
     res.send("Logout Successful!!!");
 });
 

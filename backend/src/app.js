@@ -5,9 +5,24 @@ const cors = require("cors");
 
 const app = express();
 
+const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS blocked for origin: ${origin}`));
+      }
+    },
     credentials: true,
   })
 );
@@ -29,8 +44,9 @@ app.use("/", userRouter);
 // Connect to database first, then start server
 connectDB()
   .then(() => {
-    app.listen(3000, () => {
-      console.log("Server is listening on port 3000...");
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`Server is listening on port ${PORT}...`);
     });
   })
   .catch((err) => {
