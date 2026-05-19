@@ -75,10 +75,10 @@ authRouter.post("/logout", async (req, res) => {
 // Forgot Password Route - to reset password
 authRouter.post("/forgotPassword", async (req, res) => {
   try {
-    const { email, newPassword } = req.body;
+    const { emailId, newPassword } = req.body;
 
-    // find the user
-    const user = await User.findOne({ email });
+    // find the user (schema field is emailId, not email)
+    const user = await User.findOne({ emailId });
     if (!user) return res.status(404).json({ message: "User not found" });
 
     // hash the new password

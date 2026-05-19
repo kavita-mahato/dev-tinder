@@ -57,36 +57,41 @@ git clone <repo-url>
 cd dev-tinder
 ```
 
-2. Install dependencies
+2. Install dependencies (backend and frontend each have their own `package.json`)
 
 ```bash
-npm install
+cd backend && npm install
+cd ../frontend && npm install
 ```
 
-3. Create a `.env` file in the project root (see below)
+3. Create a `.env` file in the `backend` folder (see below)
 
 ## Environment Variables
 
-Create a `.env` at the repository root with at least the following variable:
+Create a `.env` inside `backend/` with at least the following variable (this path is what `src/config/database.js` loads):
 
 ```
 MONGODB_URI=mongodb+srv://<user>:<password>@cluster0.mongodb.net/dev-tinder?retryWrites=true&w=majority
 JWT_SECRET=your_jwt_secret_here
 ```
 
-`src/config/database.js` already loads `.env` from the project root, and the app will fail to start if `MONGODB_URI` is not defined.
+`src/config/database.js` loads `.env` from the `backend/` directory, and the app will fail to start if `MONGODB_URI` is not defined.
 
 ## Run the App
+
+From the `backend` folder:
 
 -   Start in production mode:
 
 ```bash
+cd backend
 npm start
 ```
 
 -   Start in development mode (requires `nodemon`):
 
 ```bash
+cd backend
 npm run dev
 ```
 

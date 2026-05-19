@@ -8,8 +8,8 @@ import { addUser } from "../utils/userSlice";
 import { BASE_URL } from "../utils/constants";
 
 const Login = () => {
-    const [emailId, setEmailId] = useState("kavitamahato@gmail.com");
-    const [password, setPassword] = useState("Kavita@03");
+    const [emailId, setEmailId] = useState("");
+    const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -60,7 +60,17 @@ const Login = () => {
             dispatch(addUser(res.data)); // Save user to Redux
             navigate("/feed");
         }catch(err){
-            setError(err.response?.data?.message || err.response?.data || "Invalid email or password");
+            if (!err.response) {
+                setError(
+                    "Cannot reach the API server. From the backend folder run `npm run dev` (port 3000) and ensure MongoDB is configured in backend/.env."
+                );
+            } else {
+                setError(
+                    err.response?.data?.message ||
+                        err.response?.data ||
+                        "Invalid email or password"
+                );
+            }
         } finally {
             setIsLoading(false);
         }

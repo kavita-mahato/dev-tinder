@@ -218,7 +218,18 @@ const SignUp = () => {
             dispatch(addUser(loginRes.data));
             navigate("/profile");
         } catch (err) {
-            setError(err.response?.data?.message || err.response?.data || err.message || "Sign up failed. Please try again.");
+            if (!err.response) {
+                setError(
+                    "Cannot reach the API server. Start the backend (port 3000) and ensure MongoDB is set in backend/.env."
+                );
+            } else {
+                setError(
+                    err.response?.data?.message ||
+                        err.response?.data ||
+                        err.message ||
+                        "Sign up failed. Please try again."
+                );
+            }
         }
     };
 
