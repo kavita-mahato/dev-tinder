@@ -99,9 +99,9 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
-                <a className="flex items-center gap-2">
+                <Link to="/profile/edit" className="flex items-center gap-2">
                   <FaCog /> Settings
-                </a>
+                </Link>
               </li>
               <li>
                 <Link onClick={handleLogout} className="flex items-center gap-2">
