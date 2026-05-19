@@ -220,7 +220,7 @@ const SignUp = () => {
         } catch (err) {
             if (!err.response) {
                 setError(
-                    "Cannot reach the API server. Start the backend (port 3000) and ensure MongoDB is set in backend/.env."
+                    "Cannot reach the API server."
                 );
             } else {
                 setError(

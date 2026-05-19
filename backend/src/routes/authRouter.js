@@ -4,6 +4,7 @@ const { getCookieOptions } = require("../utils/cookieOptions");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const JWT_SECRET = require("../utils/jwtSecret");
 
 const authRouter = express.Router();
 
@@ -50,7 +51,7 @@ authRouter.post("/login", async (req, res) => {
     if (isPasswordValid) {
 
       // Generate token
-      const token = jwt.sign({ _id: user._id }, "DEV@Tinder$790", { expiresIn: "1d" });
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: "1d" });
 
       // Add the token to Cookie
       res.cookie(
